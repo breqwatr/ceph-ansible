@@ -1,5 +1,7 @@
 FROM ubuntu:bionic
 
+ARG RELEASE
+
 RUN mkdir -p \
       /root/.ssh \
       /var/repos/ \
@@ -16,7 +18,7 @@ RUN mkdir -p \
       python-setuptools \
   && rm -rf /var/lib/apt/lists/* \
   && git clone \
-      --single-branch --branch stable-3.2 \
+      --single-branch --branch stable-$RELEASE \
       https://github.com/ceph/ceph-ansible.git /var/repos/ceph-ansible \
   && rm /var/repos/ceph-ansible/group_vars/*.sample \
   && cp /var/repos/ceph-ansible/site.yml.sample /var/repos/ceph-ansible/site.yml \
